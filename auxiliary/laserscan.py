@@ -65,13 +65,15 @@ class LaserScan:
       raise TypeError("Filename should be string type, "
                       "but was {type}".format(type=str(type(filename))))
 
-    # check extension is a laserscan
+    # check extension is a laserscan  .bin
     if not any(filename.endswith(ext) for ext in self.EXTENSIONS_SCAN):
       raise RuntimeError("Filename extension is not valid scan file.")
 
     # if all goes well, open pointcloud
     scan = np.fromfile(filename, dtype=np.float32)
+    # print('raw scan shape: \n',scan.shape)
     scan = scan.reshape((-1, 4))
+    # print('after scan reshape: \n',scan.shape)
 
     # put in attribute
     points = scan[:, 0:3]    # get xyz
@@ -230,7 +232,9 @@ class SemLaserScan(LaserScan):
 
     # if all goes well, open label
     label = np.fromfile(filename, dtype=np.uint32)
+    # print('raw label shape: \n',label.shape)
     label = label.reshape((-1))
+    # print('after label reshape: \n',label.shape)
 
     # set it
     self.set_label(label)

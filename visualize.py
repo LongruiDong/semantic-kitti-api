@@ -12,7 +12,8 @@ if __name__ == '__main__':
   parser.add_argument(
       '--dataset', '-d',
       type=str,
-      required=True,
+      required=False,
+      default="/home/dlr/kitti/dataset/",
       help='Dataset to visualize. No Default',
   )
   parser.add_argument(
@@ -100,7 +101,7 @@ if __name__ == '__main__':
 
   # does sequence folder exist?
   scan_paths = os.path.join(FLAGS.dataset, "sequences",
-                            FLAGS.sequence, "velodyne")
+                            FLAGS.sequence, "velodyne_filtered") # _filtered
   if os.path.isdir(scan_paths):
     print("Sequence folder exists! Using sequence from %s" % scan_paths)
   else:
@@ -119,7 +120,7 @@ if __name__ == '__main__':
                                  FLAGS.sequence, "predictions")
     else:
       label_paths = os.path.join(FLAGS.dataset, "sequences",
-                                 FLAGS.sequence, "labels")
+                                 FLAGS.sequence, "labels_filtered") # _filtered
     if os.path.isdir(label_paths):
       print("Labels folder exists! Using labels from %s" % label_paths)
     else:
